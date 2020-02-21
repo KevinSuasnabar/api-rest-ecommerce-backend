@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -38,6 +40,10 @@ public class Cart implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY/*,cascade = CascadeType.ALL*/, mappedBy = "cart")
 	private List<CartItem> items;
+	
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 
 	public Cart() {
 		items = new ArrayList<>();

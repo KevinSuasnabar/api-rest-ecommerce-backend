@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kev.springboot.backend.tienda.online.models.entity.Categoria;
@@ -140,6 +141,12 @@ public class ProductoController {
 
 		response.put("mensaje", "Producto eliminado con exito");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping("/productos/filtrar/{term}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Producto> filtrarProductos(@PathVariable String term){
+		return productoService.findProductoByNombre(term);
 	}
 
 }

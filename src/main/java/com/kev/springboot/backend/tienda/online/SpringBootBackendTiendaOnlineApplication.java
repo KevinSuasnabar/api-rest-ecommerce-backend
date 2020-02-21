@@ -8,8 +8,8 @@ public class SpringBootBackendTiendaOnlineApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootBackendTiendaOnlineApplication.class, args);
-		
-		
+//		Runnable runable= () -> System.out.println("hola");
+//		runable.run();		
 	}
 
 }

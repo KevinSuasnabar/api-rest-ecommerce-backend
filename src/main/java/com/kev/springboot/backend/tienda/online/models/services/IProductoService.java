@@ -15,5 +15,7 @@ public interface IProductoService {
 	public void delete(Long id);
 	
 	public List<Producto> prodByCategoryId(Long id);
+	
+	public List<Producto> findProductoByNombre(String term);
 
 }

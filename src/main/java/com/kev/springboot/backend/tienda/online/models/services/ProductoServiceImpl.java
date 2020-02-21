@@ -44,9 +44,17 @@ public class ProductoServiceImpl implements IProductoService{
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Producto> prodByCategoryId(Long id) {
 		
 		return productoDao.prodByCategoryId(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Producto> findProductoByNombre(String term) {
+		
+		return productoDao.findByNombreContainingIgnoreCase(term);
 	}
 
 }
