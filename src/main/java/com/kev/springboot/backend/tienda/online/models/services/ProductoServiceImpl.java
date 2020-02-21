@@ -57,4 +57,10 @@ public class ProductoServiceImpl implements IProductoService{
 		return productoDao.findByNombreContainingIgnoreCase(term);
 	}
 
+	@Override
+	public List<Producto> findAvalibleProd() {
+		
+		return productoDao.findAvailableProducts();
+	}
+
 }

@@ -17,5 +17,7 @@ public interface IProductoService {
 	public List<Producto> prodByCategoryId(Long id);
 	
 	public List<Producto> findProductoByNombre(String term);
+	
+	public List<Producto> findAvalibleProd();
 
 }

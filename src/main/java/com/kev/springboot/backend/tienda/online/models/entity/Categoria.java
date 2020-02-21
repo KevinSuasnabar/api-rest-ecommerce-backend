@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,14 +31,10 @@ public class Categoria implements Serializable {
 	private Long id;
 	private String nombre;
 
-
-	
-	
-	@ManyToMany(mappedBy = "categorias",fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "categorias", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Producto> productos = new ArrayList<>();
-	
-	
-	@JsonIgnoreProperties({"categoria"})
+
+	@JsonIgnoreProperties({ "categoria" })
 	public List<Producto> getProductos() {
 		return productos;
 	}

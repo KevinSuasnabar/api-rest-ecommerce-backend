@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,12 +34,19 @@ public class ProductoController {
 	@Autowired
 	private IProductoService productoService;
 
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/productos")
 	public List<Producto> getAllProd() {
 		return productoService.findAll();
 	}
+	
+	
+	@GetMapping("/available-products")
+	public List<Producto> getAvailablePro(){
+		return productoService.findAvalibleProd();
+	}
 
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/productos/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		Producto producto = null;
@@ -60,6 +68,7 @@ public class ProductoController {
 
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/productos")
 	public ResponseEntity<?> create(@RequestBody Producto producto, BindingResult result) {
 		Producto newProduct = null;
@@ -87,6 +96,7 @@ public class ProductoController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/productos/{id}")
 	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Producto producto, BindingResult result) {
 		Producto prodActual = productoService.findById(id);
@@ -114,6 +124,7 @@ public class ProductoController {
 			prodActual.setPrecio(producto.getPrecio());
 			prodActual.setCreateAt(producto.getCreateAt());
 			prodActual.setCategoria(producto.getCategoria());
+			prodActual.setStatus(producto.getStatus());
 			prodUpdated = productoService.save(prodActual);
 
 		} catch (DataAccessException e) {
@@ -128,21 +139,21 @@ public class ProductoController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("/productos/{id}")
-	public ResponseEntity<?> delete(@PathVariable Long id) {
-		Map<String, Object> response = new HashMap<>();// para guardar los mensajes varios
-
-		try {
-			productoService.delete(id);
-		} catch (DataAccessException e) {
-			response.put("mensaje", "Error  al eliminar de la BD");
-			response.put("error", e.getMessage() + " :" + e.getMostSpecificCause().getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-		response.put("mensaje", "Producto eliminado con exito");
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-	}
+//	@DeleteMapping("/productos/{id}")
+//	public ResponseEntity<?> delete(@PathVariable Long id) {
+//		Map<String, Object> response = new HashMap<>();// para guardar los mensajes varios
+//
+//		try {
+//			productoService.delete(id);
+//		} catch (DataAccessException e) {
+//			response.put("mensaje", "Error  al eliminar de la BD");
+//			response.put("error", e.getMessage() + " :" + e.getMostSpecificCause().getMessage());
+//			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//
+//		response.put("mensaje", "Producto eliminado con exito");
+//		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+//	}
 	
 	@GetMapping("/productos/filtrar/{term}")
 	@ResponseStatus(HttpStatus.OK)

@@ -18,4 +18,9 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	
 	//metodo extraido de crudRepository ya no necestita una consulta query esto viene adentro
 	public List<Producto> findByNombreContainingIgnoreCase(String term);
+	
+	
+	//para productos disponibles
+	@Query(nativeQuery = true,value = "SELECT * FROM productos WHERE productos.status=1")
+	public List<Producto> findAvailableProducts();
 }
