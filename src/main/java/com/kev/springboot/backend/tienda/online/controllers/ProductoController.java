@@ -114,6 +114,7 @@ public class ProductoController {
 			prodActual.setPrecio(producto.getPrecio());
 			prodActual.setCreateAt(producto.getCreateAt());
 			prodActual.setCategoria(producto.getCategoria());
+			prodActual.setStatus(producto.getStatus());
 			prodUpdated = productoService.save(prodActual);
 
 		} catch (DataAccessException e) {

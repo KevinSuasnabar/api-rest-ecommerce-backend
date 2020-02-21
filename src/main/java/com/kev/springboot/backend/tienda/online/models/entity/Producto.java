@@ -40,23 +40,32 @@ public class Producto implements Serializable {
 	private String nombre;
 	private Double precio;
 
-	
 	@JoinTable(name = "prod_cate", joinColumns = @JoinColumn(name = "fk_producto", nullable = false), inverseJoinColumns = @JoinColumn(name = "fk_categoria", nullable = false))
-	@ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private List<Categoria> categorias = new ArrayList<>();
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_at")
 	private Date createAt;
 
+	private Boolean status;
+
 	@PrePersist
 	public void prePersist() {
 		createAt = new Date();
 	}
 
-	@JsonIgnoreProperties({"productos"})
+	@JsonIgnoreProperties({ "productos" })
 	public List<Categoria> getCategoria() {
 		return categorias;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	public void setCategoria(List<Categoria> categorias) {
