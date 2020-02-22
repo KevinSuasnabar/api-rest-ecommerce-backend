@@ -31,7 +31,7 @@ public class Categoria implements Serializable {
 	private Long id;
 	private String nombre;
 
-	@ManyToMany(mappedBy = "categorias", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "categorias", fetch = FetchType.LAZY)
 	private List<Producto> productos = new ArrayList<>();
 
 	@JsonIgnoreProperties({ "categoria" })
