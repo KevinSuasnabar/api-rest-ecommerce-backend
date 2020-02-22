@@ -34,7 +34,7 @@ public class ProductoController {
 	@Autowired
 	private IProductoService productoService;
 
-	@Secured({"ROLE_ADMIN"})
+	//@Secured({"ROLE_ADMIN"})
 	@GetMapping("/productos")
 	public List<Producto> getAllProd() {
 		return productoService.findAll();
@@ -46,7 +46,7 @@ public class ProductoController {
 		return productoService.findAvalibleProd();
 	}
 
-	@Secured({"ROLE_ADMIN"})
+	//@Secured({"ROLE_ADMIN"})
 	@GetMapping("/productos/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		Producto producto = null;
@@ -68,7 +68,7 @@ public class ProductoController {
 
 	}
 
-	@Secured({"ROLE_ADMIN"})
+	//@Secured({"ROLE_ADMIN"})
 	@PostMapping("/productos")
 	public ResponseEntity<?> create(@RequestBody Producto producto, BindingResult result) {
 		Producto newProduct = null;
@@ -93,10 +93,11 @@ public class ProductoController {
 		}
 		response.put("mensaje", "Producto creado con exito!");
 		response.put("producto", newProduct);
+		System.out.println(newProduct.getNombre()+" "+newProduct.getId()+" "+newProduct.getStatus());
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	@Secured({"ROLE_ADMIN"})
+	//@Secured({"ROLE_ADMIN"})
 	@PutMapping("/productos/{id}")
 	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Producto producto, BindingResult result) {
 		Producto prodActual = productoService.findById(id);

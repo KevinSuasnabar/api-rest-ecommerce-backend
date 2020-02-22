@@ -41,7 +41,7 @@ public class Producto implements Serializable {
 	private Double precio;
 
 	@JoinTable(name = "prod_cate", joinColumns = @JoinColumn(name = "fk_producto", nullable = false), inverseJoinColumns = @JoinColumn(name = "fk_categoria", nullable = false))
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	private List<Categoria> categorias = new ArrayList<>();
 
 	@Temporal(TemporalType.DATE)

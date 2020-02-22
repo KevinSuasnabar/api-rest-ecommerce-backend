@@ -12,10 +12,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/productos").permitAll()
-//		.antMatchers(HttpMethod.GET,"/api/productos/{id}").hasAnyRole("USER","ADMIN")
-//		.antMatchers(HttpMethod.POST,"/api/productos").hasRole("ADMIN")
-//		.antMatchers("/api/productos/**").hasRole("ADMIN")
+		http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/available-products").permitAll()
+		.antMatchers(HttpMethod.GET,"/api/productos").hasAnyRole("ADMIN")
+		.antMatchers(HttpMethod.GET,"/api/productos/{id}").hasAnyRole("USER","ADMIN")
+		.antMatchers(HttpMethod.POST,"/api/productos").hasRole("ADMIN")
+		.antMatchers(HttpMethod.PUT,"/api/productos/{id}").hasRole("ADMIN")
+		.antMatchers("/api/productos/**").hasRole("ADMIN")
 		
 		.anyRequest().authenticated();
 	}
